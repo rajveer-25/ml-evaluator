@@ -17,12 +17,14 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 
-# Streamlit App Configuration
 st.set_page_config(page_title="ML Model Evaluator", layout="wide")
-st.title("📊 ML Model Evaluator - Streamlit")
-st.write("This app evaluates multiple machine learning models on a given dataset assisting for classification.")
+st.title("📊 ML Model Evaluator")
+st.markdown(
+    '<p style="color:red; font-size:18px; font-weight:bold;">'
+    'This app evaluates multiple machine learning models on a given dataset assisting for classification problems only!'
+    '</p>', unsafe_allow_html=True
+)
 
-# Sidebar File Upload
 uploaded_file = st.file_uploader("Upload your CSV dataset", type=["csv"])
 
 def process_data(file):
@@ -126,11 +128,11 @@ if uploaded_file:
         with st.spinner("Training models... Please wait."):
             results, best_model = evaluate_models(X, y)
         
-        st.subheader("Model Performance")
+        st.markdown("<h2 style='font-size:24px;'>Model Performance</h2>", unsafe_allow_html=True)
         st.write(pd.DataFrame(results))
-        
-        st.subheader("Best Performing Model")
+
+        st.markdown("<h2 style='font-size:24px;'>Best Performing Model</h2>", unsafe_allow_html=True)
         st.write(f"**{best_model['name']}** with accuracy: **{best_model['accuracy']:.4f}**")
         
-        st.subheader("Visualizations")
+        st.markdown("<h2 style='font-size:24px;'>Visualizations</h2>", unsafe_allow_html=True)
         create_plots(results)
